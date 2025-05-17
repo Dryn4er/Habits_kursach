@@ -213,3 +213,6 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 NULLABLE = {'blank': True, 'null': True}
+
+TELEGRAM_URL = "https://api_telegram.org/bot"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
