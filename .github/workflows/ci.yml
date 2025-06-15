@@ -74,7 +74,7 @@ jobs:
       - name: Run .flake8 linting
         run: |
           # Проверка всего проекта, исключая виртуальные окружения и миграции, при необходимости можно настроить исключения.
-          flake8 . --max-line-length=88 || exit 1    
+          flake8 . --max-line-length=120 || exit 1    
 
   build:
     needs: test
