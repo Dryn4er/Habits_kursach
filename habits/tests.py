@@ -11,7 +11,10 @@ class HabitTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(email="test@gmail.com")
         self.habit = Habit.objects.create(
-            owner=self.user, start_time="2024-12-05 07:00", action="Test", rhythm="every day"
+            owner=self.user,
+            start_time="2024-12-05 07:00",
+            action="Test",
+            rhythm="every day",
         )
         self.client.force_authenticate(user=self.user)
 
@@ -20,9 +23,14 @@ class HabitTestCase(APITestCase):
         Тестирование создания привычки
         :return:
         """
-        data = { "start_time": "2024-12-06 10:00", "action": "Test", "rhythm": "every day",}
+        data = {
+            "start_time": "2024-12-06 10:00",
+            "action": "Test",
+            "rhythm": "every day",
+        }
         response = self.client.post(
-            "/habits/", data=data,
+            "/habits/",
+            data=data,
         )
         # print(response.json())
 
@@ -65,14 +73,14 @@ class HabitTestCase(APITestCase):
             "rhythm": "every day",
             "lead_time": 1,
             "related_habit": related_habit.pk,
-            "reward": "chocolate"
+            "reward": "chocolate",
         }
         response = self.client.post("/habits/", data=data)
         # print(response.json())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn(
             "Нельзя использовать одновременно связанную привычку и вознаграждение",
-            str(response.json())
+            str(response.json()),
         )
 
     def test_habit_create_with_wrong_lead_time(self):
@@ -86,8 +94,7 @@ class HabitTestCase(APITestCase):
         # print(response.json())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn(
-            "Время выполнения должно быть не больше 120 минут",
-            str(response.json())
+            "Время выполнения должно быть не больше 120 минут", str(response.json())
         )
 
     def test_habit_is_pleasant_create_with_reward(self):
@@ -97,14 +104,14 @@ class HabitTestCase(APITestCase):
             "rhythm": "every day",
             "lead_time": 1,
             "is_pleasant": True,
-            "reward": "chocolate"
+            "reward": "chocolate",
         }
         response = self.client.post("/habits/", data=data)
         # print(response.json())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn(
             "У приятной привычки не может быть связанной привычки или вознаграждения",
-            str(response.json())
+            str(response.json()),
         )
 
     def test_habit_retrieve(self):
@@ -117,13 +124,8 @@ class HabitTestCase(APITestCase):
         data = response.json()
         # print(response.json())
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
-        self.assertEqual(
-            data.get("action"), self.habit.action
-        )
-
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(data.get("action"), self.habit.action)
 
     def test_habit_update(self):
         """
@@ -131,19 +133,13 @@ class HabitTestCase(APITestCase):
         :return:
         """
         url = reverse("habits:habit-detail", args=(self.habit.pk,))
-        data = {
-            "action": "Test1"
-        }
+        data = {"action": "Test1"}
         response = self.client.patch(url, data)
         data = response.json()
         # print(response.json())
 
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
-        self.assertEqual(
-            data.get("action"), "Test1"
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(data.get("action"), "Test1")
 
     def test_habit_delete(self):
         """
@@ -153,9 +149,5 @@ class HabitTestCase(APITestCase):
         url = reverse("habits:habit-detail", args=(self.habit.pk,))
         response = self.client.delete(url)
 
-        self.assertEqual(
-            response.status_code, status.HTTP_204_NO_CONTENT
-        )
-        self.assertEqual(
-            Habit.objects.all().count(), 0
-        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Habit.objects.all().count(), 0)

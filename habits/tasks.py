@@ -8,14 +8,15 @@ from habits.models import Habit
 from habits.services import send_telegram_message
 
 PERIOD_TIMEDELTA = {
-    'every day': datetime.timedelta(days=1),
-    'every other day': datetime.timedelta(days=2),
-    'every three days': datetime.timedelta(days=3),
-    'every four days': datetime.timedelta(days=4),
-    'every five days': datetime.timedelta(days=5),
-    'every six days': datetime.timedelta(days=6),
-    'every weak': datetime.timedelta(weeks=1)
-    }
+    "every day": datetime.timedelta(days=1),
+    "every other day": datetime.timedelta(days=2),
+    "every three days": datetime.timedelta(days=3),
+    "every four days": datetime.timedelta(days=4),
+    "every five days": datetime.timedelta(days=5),
+    "every six days": datetime.timedelta(days=6),
+    "every weak": datetime.timedelta(weeks=1),
+}
+
 
 @shared_task
 def check_habits():

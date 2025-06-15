@@ -10,7 +10,7 @@ router = SimpleRouter()
 router.register("", HabitViewSet)
 
 urlpatterns = [
-   path('published_list/', PublishedHabitListAPIView.as_view(), name='published_list'),
+    path("published_list/", PublishedHabitListAPIView.as_view(), name="published_list"),
 ]
 
 urlpatterns += router.urls

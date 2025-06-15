@@ -5,6 +5,7 @@ class RelatedHabitOrRewordValidator:
     """
     Валидатор использования одновременно связанной привычки и вознаграждения
     """
+
     def __init__(self, field_1, field_2):
         self.field_1 = field_1
         self.field_2 = field_2
@@ -14,7 +15,9 @@ class RelatedHabitOrRewordValidator:
         reward = dict(value).get(self.field_2)
 
         if related_habit and reward:
-            raise ValidationError('Нельзя использовать одновременно связанную привычку и вознаграждение')
+            raise ValidationError(
+                "Нельзя использовать одновременно связанную привычку и вознаграждение"
+            )
 
 
 class CheckLeadTimeValidator:
@@ -39,6 +42,7 @@ class RelatedHabitNotPleasantValidator:
     """
     Валидатор связанной привычки как приятной
     """
+
     def __init__(self, field_1):
         self.field_1 = field_1
 
@@ -56,6 +60,7 @@ class IsPleasantNotRelatedHabitOrRewordValidator:
     """
     Валидатор наличия у приятной привычки связанной привычки или вознаграждения
     """
+
     def __init__(self, field_1, field_2, field_3):
         self.field_1 = field_1
         self.field_2 = field_2
@@ -67,4 +72,6 @@ class IsPleasantNotRelatedHabitOrRewordValidator:
         reward = dict(value).get(self.field_3)
 
         if (is_pleasant and related_habit) or (is_pleasant and reward):
-            raise ValidationError("У приятной привычки не может быть связанной привычки или вознаграждения")
+            raise ValidationError(
+                "У приятной привычки не может быть связанной привычки или вознаграждения"
+            )

@@ -16,13 +16,10 @@ class Habit(models.Model):
         ("every four days", "раз в 4 дня"),
         ("every five days", "раз в 5 дней"),
         ("every six days", "ра в 6 дней"),
-        ("every weak", "раз в неделю")
+        ("every weak", "раз в неделю"),
     ]
     owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name="Владелец",
-        **NULLABLE
+        User, on_delete=models.CASCADE, verbose_name="Владелец", **NULLABLE
     )
     place = models.CharField(
         max_length=100,
@@ -33,7 +30,7 @@ class Habit(models.Model):
     start_time = models.DateTimeField(
         verbose_name="Время начала выполнения привычки",
         help_text="Выберете дату и время начала привычки",
-        **NULLABLE
+        **NULLABLE,
     )
     action = models.CharField(
         max_length=300,
@@ -46,7 +43,7 @@ class Habit(models.Model):
         help_text="Привычка является приятной",
     )
     related_habit = models.ForeignKey(
-        'self',
+        "self",
         on_delete=models.SET_NULL,
         verbose_name="Связанная привычка",
         help_text="Выбирите связанную приятную привычку",

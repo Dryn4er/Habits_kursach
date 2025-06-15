@@ -6,6 +6,7 @@ from config.settings import NULLABLE
 
 class User(AbstractUser):
     """Модель пользователя"""
+
     username = None
 
     email = models.EmailField(
